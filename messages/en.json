@@ -8,13 +8,58 @@
     "keywords": "AI image generation, text-to-image, digital art, creative tools, Reve Image, free image generation"
   },
   "hero": {
-    "mainTitle": "Create Stunning Images with",
-    "mainEyesOn": "Reve Image",
-    "description": "Transform your ideas into breathtaking visuals with Reve Image's AI-powered image generation. Unleash your creativity with the cutting-edge technology.",
-    "button": "Get Started",
-    "about": "Enjoy 20 free images daily with Reve Image",
-    "heroImageAlt": "Reve Image AI-generated artwork showcasing the power of the platform",
-    "heroImageUrl": "https://r2.d8ger.com/default.webp"
+    "mainTitle": "Describe Yourself",
+    "mainSubtitle": "Generate personalized self-description paragraphs tailored to your context and goals",
+    "chooseContext": "Choose Your Context",
+    "shareBrief": "Share a Brief Description",
+    "inputTip": "Just a few keywords or phrases about yourself - keep it simple and comfortable!",
+    "outputTitle": "Your Description",
+    "outputEmpty": "Your generated description will appear here",
+    "outputEmptyTip": "You generated self-description will appear here",
+    "contexts": [
+      {
+        "id": "professional",
+        "title": "Professional",
+        "icon": "Building2",
+        "placeholder": "e.g., leadership skills, 5+ years experience, increased sales by 20%",
+        "description": "Provide a short description of your professional skills, experiences, or achievements. Include strengths like leadership or analytical thinking, years of experience, or accomplishments like leading a team or boosting sales by 20%."
+      },
+      {
+        "id": "social",
+        "title": "Social",
+        "icon": "HandHeart",
+        "placeholder": "e.g., outgoing, loves hiking, coffee enthusiast, adventure seeker",
+        "description": "Share a short description of your personality traits, hobbies, or passions. Include what makes you fun or unique, like being outgoing or loving hiking. Mention activities or interests that show your vibe."
+      },
+      {
+        "id": "academic",
+        "title": "Academic",
+        "icon": "LibraryIcon",
+        "placeholder": "e.g., 3.8 GPA, published research, computer science major, aspiring PhD",
+        "description": "Offer a short description of your academic background, achievements, or aspirations. Include accomplishments like a 3.8 GPA or published research, your field of study, or goals like pursuing a PhD."
+      },
+      {
+        "id": "self-discovery",
+        "title": "Self-Discovery",
+        "icon": "Search",
+        "placeholder": "e.g., empathetic, curious, values honesty, volunteered abroad",
+        "description": "Reflect with a short description of your personal values, traits, or experiences. Include characteristics like empathy or curiosity, core beliefs, or moments that shaped you, like volunteering abroad. Share what feels true to you."
+      },
+      {
+        "id": "creative-writing",
+        "title": "Creative Writing",
+        "icon": "Pencil",
+        "placeholder": "e.g., brave warrior, mysterious past, dystopian world, hidden powers",
+        "description": "Create a short description of your character's traits, background, or motivations. Include details like bravery or a mysterious past, or story context like a warrior in a dystopian world. Make it vivid yet simple."
+      },
+      {
+        "id": "language-learning",
+        "title": "Language Learning",
+        "icon": "Globe",
+        "placeholder": "e.g., friendly, enjoys music, likes soccer, helpful person",
+        "description": "Write a short description of your traits, interests, or experiences in the target language. Use simple words like friendly or enjoys music. Focus on clear, easy phrases to practice your language skills."
+      }
+    ]
   },
   "usage": {
     "title": "How to use",
