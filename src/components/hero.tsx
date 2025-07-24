@@ -3,6 +3,10 @@
 
 import { useState } from 'react'
 import { globalLucideIcons as icons } from '@windrun-huaiin/base-ui/components/server'
+import { GradientButton } from '@windrun-huaiin/third-ui/fuma/mdx'
+import React from 'react'
+import { XButton } from '@windrun-huaiin/third-ui/main'
+
 
 type Context = 'professional' | 'social' | 'academic' | 'self-discovery' | 'creative-writing' | 'language-learning'
 
@@ -66,9 +70,50 @@ export function Hero() {
   const [isGenerating, setIsGenerating] = useState(false)
   const [showOutput, setShowOutput] = useState(false)
   const [isCopied, setIsCopied] = useState(false)
+  const [isWordLimit, setIsWordLimit] = useState(false)
 
   const selectedContextConfig = contexts.find(c => c.id === selectedContext)
-  const wordCount = userInput.trim().split(/\s+/).filter(Boolean).length
+  const wordArray = userInput.trim().split(/\s+/).filter(Boolean)
+  const wordCount = wordArray.length
+  const maxWords = 400
+
+  // 处理输入，限制最大单词数
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value
+    const words = value.trim().split(/\s+/).filter(Boolean)
+    // 如果已经达到最大单词数，并且本次输入会导致超限，则不更新
+    if (wordCount >= maxWords && words.length > maxWords) {
+      setIsWordLimit(true)
+      return
+    }
+    if (words.length > maxWords) {
+      setUserInput(words.slice(0, maxWords).join(' '))
+      setIsWordLimit(true)
+    } else {
+      setUserInput(value)
+      setIsWordLimit(false)
+    }
+  }
+
+  // 粘贴时也做单词数判断
+  const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    const paste = e.clipboardData.getData('text')
+    const currentWords = userInput.trim().split(/\s+/).filter(Boolean)
+    const pasteWords = paste.trim().split(/\s+/).filter(Boolean)
+    if (currentWords.length >= maxWords) {
+      e.preventDefault()
+      setIsWordLimit(true)
+      return
+    }
+    // 只允许粘贴剩余单词数
+    const allowed = maxWords - currentWords.length
+    if (pasteWords.length > allowed) {
+      e.preventDefault()
+      const newWords = currentWords.concat(pasteWords.slice(0, allowed))
+      setUserInput(newWords.join(' '))
+      setIsWordLimit(true)
+    }
+  }
 
   const handleGenerate = async () => {
     if (!selectedContext || !userInput.trim()) return
@@ -122,181 +167,161 @@ export function Hero() {
   }
 
   return (
-    <section className="container mx-auto px-4 py-12 max-w-4xl">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent mb-4">
-          Describe Yourself
+    <section className="px-16 mx-16 md:mx-32 space-y-8">
+      {/* 标题区 */}
+      <div className="text-center space-y-3">
+        <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+            Describe Yourself
+          </span>
         </h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <span className="text-base md:text-2xl font-bold leading-tight text-foreground">
           Generate personalized self-description paragraphs tailored to your context and goals
-        </p>
+        </span>
       </div>
 
-      <div className="space-y-6">
-        {/* Context Selection */}
-        <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <h2 className="text-xl font-semibold mb-4">Choose Your Context</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-            {contexts.map((context) => {
-              const Icon = icons[context.icon]
-              return (
-                <button
-                  key={context.id}
-                  onClick={() => setSelectedContext(context.id)}
-                  className={`p-3 rounded-lg border-2 transition-all duration-300 hover:scale-105 hover:shadow-md ${
-                    selectedContext === context.id
-                      ? 'border-blue-500 bg-blue-50 shadow-md scale-105'
-                      : 'border-gray-200 hover:border-blue-300 bg-white'
-                  }`}
-                >
-                  <div className="flex flex-col items-center text-center space-y-2">
-                    <div className={`p-2 rounded-full transition-colors ${
-                      selectedContext === context.id
-                        ? 'bg-blue-500 text-white'
-                        : 'bg-gray-100 text-gray-600'
-                    }`}>
-                      <Icon className="w-5 h-5" />
-                    </div>
-                    <h3 className="font-medium text-sm">{context.title}</h3>
-                  </div>
-                </button>
-              )
-            })}
-          </div>
-        </div>
-
-        {/* Input Section */}
-        <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <h2 className="text-xl font-semibold mb-4">Share a Brief Description</h2>
-          <p className="text-gray-600 text-base mb-4">Just a few keywords or phrases about yourself - keep it simple and comfortable!</p>
-          
-          {selectedContext && (
-            <div className="mb-4">
-              <p className="text-gray-600 text-base p-4 bg-blue-50 rounded-lg border border-blue-100">
-                <icons.Info className="w-5 h-5 inline mr-2 text-blue-500" />
-                {selectedContextConfig?.description}
-              </p>
-            </div>
-          )}
-          
-          <textarea
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            placeholder={selectedContext ? selectedContextConfig?.placeholder : "Please select a context first..."}
-            maxLength={400}
-            rows={5}
-            disabled={!selectedContext}
-            className="w-full p-4 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all duration-300 resize-none text-base text-gray-700 placeholder-gray-400 disabled:bg-gray-50 disabled:cursor-not-allowed"
-          />
-          <div className="flex justify-between items-center mt-3">
-            <span className={`text-base ${
-              wordCount > 380 ? 'text-red-500' : wordCount > 300 ? 'text-orange-500' : 'text-gray-500'
-            }`}>
-              {wordCount}/400 words
-            </span>
-            <div className="flex items-center space-x-3">
-              {wordCount > 0 && (
-                <button
-                  onClick={() => setUserInput('')}
-                  className="text-base text-gray-500 hover:text-red-500 transition-colors"
-                >
-                  Clear
-                </button>
-              )}
-              {selectedContext && (
-                <button
-                  onClick={handleGenerate}
-                  disabled={isGenerating || !userInput.trim()}
-                  className="px-5 py-2.5 bg-gradient-to-r from-blue-500 to-teal-500 text-white font-medium text-base rounded-lg hover:from-blue-600 hover:to-teal-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105"
-                >
-                  {isGenerating ? (
-                    <div className="flex items-center">
-                      <icons.Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Generating...
-                    </div>
-                  ) : (
-                    <div className="flex items-center">
-                      <icons.Sparkles className="w-5 h-5 mr-2" />
-                      Generate
-                    </div>
-                  )}
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Output Section */}
-        <div className="bg-white rounded-lg border border-gray-200 p-5">
-          <h2 className="text-xl font-semibold mb-4">Your Description</h2>
-          
-          {showOutput ? (
-            <div>
-              <div className="bg-gray-50 rounded-lg border border-gray-100 p-4 mb-4">
-                <div className="mb-3 flex items-center justify-between">
-                  <span className="text-sm text-gray-500 bg-white px-3 py-1 rounded-full border">
-                    {selectedContextConfig?.title} Context
-                  </span>
+      {/* 上下分区：上下两行 */}
+      <div className="flex flex-col space-y-6">
+        {/* 上：上下文选择 */}
+        <div className="space-y-3">
+          <div className="border-2 border-border rounded-lg bg-card/30 p-5 h-full flex flex-col">
+            <h2 className="text-xl font-semibold mb-4 text-foreground">Choose Your Context</h2>
+            <div className="grid grid-cols-6 gap-3 flex-1">
+              {contexts.map((context) => {
+                const Icon = icons[context.icon]
+                return (
                   <button
-                    onClick={handleCopy}
-                    className={`px-4 py-2 rounded-lg font-medium text-base transition-all duration-300 ${
-                      isCopied 
-                        ? 'bg-green-100 text-green-700 border border-green-200' 
-                        : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                    key={context.id}
+                    onClick={() => setSelectedContext(context.id)}
+                    className={`p-3 rounded-lg border-2 transition-all duration-300 ${
+                      selectedContext === context.id
+                        ? 'border-purple-500  scale-105'
+                        : 'border-border hover:border-purple-500'
                     }`}
                   >
-                    {isCopied ? (
-                      <div className="flex items-center">
-                        <icons.Check className="w-4 h-4 mr-2" />
-                        Copied!
+                    <div className="flex flex-col items-center text-center space-y-2">
+                      <div className={`p-2 rounded-full transition-colors ${
+                        selectedContext === context.id
+                          ? 'bg-gradient-to-r from-purple-400 to-pink-500'
+                          : 'bg-muted text-muted-foreground'
+                      }`}>
+                        {selectedContext === context.id ? <Icon className="w-5 h-5 text-white" /> : <Icon className="w-5 h-5" />}
                       </div>
-                    ) : (
-                      <div className="flex items-center">
-                        <icons.Copy className="w-4 h-4 mr-2" />
-                        Copy
-                      </div>
-                    )}
+                      <h3 className="font-medium text-sm text-foreground">{context.title}</h3>
+                    </div>
                   </button>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* 下：输入区 */}
+        <div className="space-y-3 flex flex-col">
+          <div className="border-2 border-border rounded-lg bg-card/30 p-5 flex-1 flex flex-col">
+            <h2 className="text-xl font-semibold mb-4 text-foreground">Share a Brief Description</h2>
+            <p className="text-muted-foreground text-base mb-4">Just a few keywords or phrases about yourself - keep it simple and comfortable!</p>
+            {selectedContext && (
+              <div className="mb-4">
+                <p className="text-muted-foreground text-base p-4 bg-background rounded-lg border border-border">
+                  <icons.Info className="w-5 h-5 inline mr-2 text-purple-400" />
+                  {selectedContextConfig?.description}
+                </p>
+              </div>
+            )}
+            <textarea
+              value={userInput}
+              onChange={handleInputChange}
+              onPaste={handlePaste}
+              placeholder={selectedContext ? selectedContextConfig?.placeholder : "Please select a context first..."}
+              rows={5}
+              disabled={!selectedContext}
+              className="w-full flex-1 p-4 bg-transparent border-2 border-border rounded-lg hover:border-purple-500 transition-colors text-foreground placeholder-muted-foreground placeholder:text-base min-h-[120px] disabled:bg-muted disabled:cursor-not-allowed"
+            />
+            <div className="flex justify-between items-center mt-3">
+              <div className="flex items-center space-x-1">
+                {selectedContext && (
+                   <GradientButton
+                    title="Generate Description"
+                    onClick={handleGenerate}
+                    disabled={isGenerating || !userInput.trim()}
+                    icon={<icons.Sparkles className="h-4 w-4"/>}
+                  />
+                )}
+                {wordCount > 0 && (
+                  <button
+                    onClick={() => setUserInput('')}
+                    className="text-base text-muted-foreground hover:rounded-full hover:bg-neutral-300 dark:hover:bg-neutral-600 px-6 py-3"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+             <span
+               className={`text-base ${
+                 wordCount >= maxWords ? 'text-red-500' : wordCount > 300 ? 'text-orange-500' : 'text-muted-foreground'
+               } ${isWordLimit ? 'animate-bounce' : ''}`}
+               onAnimationEnd={() => setIsWordLimit(false)}
+             >
+               {wordCount}/{maxWords} words
+             </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 结果区：单独一行 */}
+      <div className="space-y-4">
+        <div className="border-2 border-border bg-card/30 rounded-lg p-5">
+          <h2 className="text-xl font-semibold mb-4 text-foreground">Your Description</h2>
+          {showOutput ? (
+            <div>
+              <div className="bg-background rounded-lg border border-border p-4 mb-4">
+                <div className="mb-3 flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground bg-background px-3 py-1 rounded-full border border-border">
+                    {selectedContextConfig?.title} Context
+                  </span>
+                  <XButton
+                    type="single"
+                    minWidth="min-w-[110px]"
+                    button={{
+                      icon: isCopied ? <icons.CheckCheck className="w-5 h-5 mr-1" /> : <icons.Copy className="w-5 h-5 mr-1" />,
+                      text: isCopied ? 'Copied' : 'Copy',
+                      onClick: handleCopy
+                    }}
+                  />
                 </div>
                 <div className="prose prose-base max-w-none">
-                  <p className="text-gray-700 leading-relaxed text-base m-0">{generatedDescription}</p>
+                  <p className="text-foreground/90 leading-relaxed text-base m-0">{generatedDescription}</p>
                 </div>
               </div>
-              
               <div className="flex flex-wrap gap-3">
-                <button
+                <GradientButton
+                  title="Regenerate"
                   onClick={handleRegenerate}
                   disabled={isGenerating}
-                  className="px-5 py-2.5 bg-blue-500 text-white font-medium text-base rounded-lg hover:bg-blue-600 disabled:opacity-50 transition-colors shadow-sm hover:shadow-md"
-                >
-                  {isGenerating ? (
-                    <div className="flex items-center">
-                      <icons.Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Regenerating...
-                    </div>
-                  ) : (
-                    <div className="flex items-center">
-                      <icons.RefreshCcw className="w-4 h-4 mr-2" />
-                      Try Another
-                    </div>
-                  )}
-                </button>
+                  icon={<icons.RefreshCcw className="h-4 w-4"/>}
+                />
                 
-                <button
+                <GradientButton
+                  title="Start Over"
                   onClick={resetForm}
-                  className="px-5 py-2.5 bg-gray-500 text-white font-medium text-base rounded-lg hover:bg-gray-600 transition-colors shadow-sm hover:shadow-md"
-                >
-                  <div className="flex items-center">
-                    <icons.RefreshCcw className="w-4 h-4 mr-2" />
-                    Start Over
-                  </div>
-                </button>
+                  icon={<icons.BookX className="h-4 w-4"/>}
+                />
               </div>
             </div>
           ) : (
-            <div className="text-center py-8 text-gray-500">
-              <icons.Sparkles className="w-8 h-8 mx-auto mb-2 text-gray-300" />
-              <p className="text-base">Your generated description will appear here</p>
+            <div className="border-2 border-border rounded-lg text-center space-y-3 py-8 bg-background">
+              <div className="mx-auto w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full flex items-center justify-center">
+                <icons.Sparkles className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground">Your generated description will appear here</h3>
+              <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+                <div className="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>
+                <span>
+                  {isGenerating ? 'Generating...' : 'Waiting for your input'}
+                </span>
+              </div>
             </div>
           )}
         </div>
