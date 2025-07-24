@@ -137,6 +137,8 @@ export function Hero() {
     setGeneratedContextTitle(null)
   }
 
+  const canRegenerate = selectedContextConfig?.title === generatedContextTitle;
+
   return (
     <section className="px-16 mx-16 md:mx-32 space-y-8">
       {/* 错误弹窗 */}
@@ -281,8 +283,8 @@ export function Hero() {
                 <GradientButton
                   title="Regenerate"
                   onClick={handleRegenerate}
-                  disabled={isGenerating}
-                  icon={<icons.RefreshCcw className="h-4 w-4"/>}
+                  disabled={isGenerating || !canRegenerate}
+                  icon={<icons.RefreshCcw className="h-4 w-4" />}
                 />
                 
                 <GradientButton
