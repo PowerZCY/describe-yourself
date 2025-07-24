@@ -69,12 +69,12 @@
       {
         "title": "Choose Your Context",
         "description": "Select the context you want to describe yourself for (e.g., professional, social, academic, etc.).",
-        "iconKey": "Target"
+        "iconKey": "MousePointerClick"
       },
       {
         "title": "Enter Brief Information",
         "description": "Fill in a few keywords or short phrases about yourself in the provided input area.",
-        "iconKey": "Edit"
+        "iconKey": "Pencil"
       },
       {
         "title": "Click Generate",
@@ -169,7 +169,7 @@
       {
         "title": "Personalized Experience",
         "description": "Describe Yourself helps us tailor recommendations and features to your unique interests and needs.",
-        "iconKey": "User"
+        "iconKey": "Sparkles"
       },
       {
         "title": "5 Free Credits Daily",
@@ -179,7 +179,7 @@
       {
         "title": "Boost Your Confidence",
         "description": "Describe Yourself helps you recognize your strengths and achievements, boosting your self-confidence.",
-        "iconKey": "ThumbsUp"
+        "iconKey": "MessageCircleMore"
       }
     ]
   },
