@@ -1,0 +1,12 @@
+# Describe Yourself
+
+> Describe Yourself is a tool that allows you to generate text descriptions of yourself.
+
+## Core Features
+- [Free Describe Yourself](https://describeyourself.org): Choose context, enter brief self keywords, generate self description.
+- [Pricing](https://describeyourself.org#pricing): List free and paid plans.
+- [FAQ](https://describeyourself.org#faq): Frequently asked questions and troubleshooting
+
+## Resources
+- [Blog](https://describeyourself.org/en/blog): Information about Describe Yourself.
+- [Legal](https://describeyourself.org/en/legal):  Privacy policy and terms of service. 

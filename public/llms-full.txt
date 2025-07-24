@@ -1,0 +1,69 @@
+# Describe Yourself - Full Guide
+
+> Describe Yourself is an AI tool that allows you to generate text descriptions of yourself for various contexts.
+
+## Core Features
+- [Free Describe Yourself](https://describeyourself.org): Choose your context, enter brief self keywords, and generate a self description.
+- [Pricing](https://describeyourself.org#pricing): View free and paid plans.
+- [FAQ](https://describeyourself.org#faq): Frequently asked questions and troubleshooting.
+
+## Supported Contexts
+
+### Professional
+- **Example:** e.g., software engineer, 5 years experience, team leader, JavaScript expert
+- **Description:** Write a short description of your professional background, skills, or achievements. Include your job title, years of experience, key skills, or notable accomplishments.
+
+### Social
+- **Example:** e.g., outgoing, loves hiking, coffee enthusiast, adventure seeker
+- **Description:** Share a short description of your personality traits, hobbies, or passions. Include what makes you fun or unique, like being outgoing or loving hiking. Mention activities or interests that show your vibe.
+
+### Academic
+- **Example:** e.g., 3.8 GPA, published research, computer science major, aspiring PhD
+- **Description:** Offer a short description of your academic background, achievements, or aspirations. Include accomplishments like a 3.8 GPA or published research, your field of study, or goals like pursuing a PhD.
+
+### Self-Discovery
+- **Example:** e.g., empathetic, curious, values honesty, volunteered abroad
+- **Description:** Reflect with a short description of your personal values, traits, or experiences. Include characteristics like empathy or curiosity, core beliefs, or moments that shaped you, like volunteering abroad. Share what feels true to you.
+
+### Creative Writing
+- **Example:** e.g., brave warrior, mysterious past, dystopian world, hidden powers
+- **Description:** Create a short description of your character's traits, background, or motivations. Include details like bravery or a mysterious past, or story context like a warrior in a dystopian world. Make it vivid yet simple.
+
+### Language Learning
+- **Example:** e.g., friendly, enjoys music, likes soccer, helpful person
+- **Description:** Write a short description of your traits, interests, or experiences in the target language. Use simple words like friendly or enjoys music. Focus on clear, easy phrases to practice your language skills.
+
+## How to Use
+
+1. **Choose Your Context**  
+   Select the context you want to describe yourself for (e.g., professional, social, academic, etc.).
+
+2. **Enter Brief Information**  
+   Fill in a few keywords or short phrases about yourself in the provided input area.
+
+3. **Click Generate**  
+   Click the 'Generate' button to create your self-description automatically.
+
+## Resources
+- [Blog](https://describeyourself.org/en/blog): Information about Describe Yourself.
+- [Legal](https://describeyourself.org/en/legal): Privacy policy and terms of service.
+
+## FAQ
+
+**What is the Describe Yourself website?**  
+Describe Yourself is an online tool that helps you generate concise and effective self-descriptions for various contexts, such as professional, academic, social, or creative writing.
+
+**Is Describe Yourself free to use?**  
+Yes, Describe Yourself offers a free version with daily credits. You can use the main features without any cost.
+
+**How do I generate a self-description?**  
+Simply choose your context, enter a few keywords or phrases about yourself, and click the 'Generate' button. The website will automatically create a self-description for you.
+
+**Are there limits to how many descriptions I can generate?**  
+The free version provides a limited number of daily credits. Upgrading to a premium plan increases your monthly credits.
+
+**Can I use the generated descriptions for commercial purposes?**  
+Yes, you can use the generated self-descriptions for both personal and commercial purposes.
+
+**How can I get support or give feedback?**  
+You can contact our support team via email.
