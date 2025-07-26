@@ -127,7 +127,7 @@ export function Hero() {
             {t('mainTitle')}
           </span>
         </h1>
-        <span className="text-base md:text-2xl font-bold leading-tight text-foreground">
+        <span className="text-base md:text-2xl leading-tight text-gray-400">
           {t('mainSubtitle')}
         </span>
       </div>
@@ -176,7 +176,7 @@ export function Hero() {
             {selectedContext && (
               <div className="mb-4">
                 <p className="text-muted-foreground text-base p-4 bg-background rounded-lg border border-border">
-                  <icons.Info className="w-5 h-5 inline mr-2 text-purple-400" />
+                  <icons.Info className="w-5 h-5 inline mr-2 text-purple-500" />
                   {selectedContextConfig?.description}
                 </p>
               </div>
