@@ -220,7 +220,7 @@ export function Hero() {
               placeholder={selectedContext ? selectedContextConfig?.placeholder : t('contexts.0.placeholder')}
               rows={5}
               disabled={!selectedContext}
-              className="w-full flex-1 p-4 bg-transparent border-2 border-border rounded-lg hover:border-purple-500 transition-colors text-foreground placeholder-muted-foreground placeholder:text-base min-h-[120px] disabled:bg-muted disabled:cursor-not-allowed"
+              className="w-full flex-1 p-4 bg-transparent border-2 border-border rounded-lg focus:outline-none focus:border-purple-400 hover:border-purple-500 transition-colors text-foreground placeholder-muted-foreground placeholder:text-base min-h-[120px] disabled:bg-muted disabled:cursor-not-allowed"
             />
             <div className="flex justify-between items-center mt-3">
               <div className="flex items-center space-x-1">
