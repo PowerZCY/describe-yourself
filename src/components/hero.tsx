@@ -1,12 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { globalLucideIcons as icons } from '@windrun-huaiin/base-ui/components/server'
 import { GradientButton } from '@windrun-huaiin/third-ui/fuma/mdx'
 import React from 'react'
 import { XButton, AdsAlertDialog } from '@windrun-huaiin/third-ui/main'
+import { AIPromptTextarea } from './ai-prompt-textarea'
 
 
 interface ContextConfig {
@@ -20,115 +21,25 @@ interface ContextConfig {
 export function Hero() {
   const t = useTranslations('hero')
   const contexts = t.raw('contexts') as ContextConfig[]
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
-  
-  // textarea高度配置
-  const textareaConfig = {
-    minHeight: 150, // 最小高度 (px)
-    maxHeight: 300  // 最大高度 (px)
-  }
   
   const [selectedContext, setSelectedContext] = useState<string | null>(null)
   const [userInput, setUserInput] = useState('')
+  const [isWordLimit, setIsWordLimit] = useState(false)
   const [generatedDescription, setGeneratedDescription] = useState('')
   const [isGenerating, setIsGenerating] = useState(false)
   const [showOutput, setShowOutput] = useState(false)
   const [isCopied, setIsCopied] = useState(false)
-  const [isWordLimit, setIsWordLimit] = useState(false)
   const [generatedContextTitle, setGeneratedContextTitle] = useState<string | null>(null)
 
   // 统一错误弹窗管理
   const [errorDialog, setErrorDialog] = useState<{ open: boolean, title: string, description: string }>({ open: false, title: '', description: '' });
 
   const selectedContextConfig = contexts.find(c => c.id === selectedContext)
-  const wordArray = userInput.trim().split(/\s+/).filter(Boolean)
-  const wordCount = wordArray.length
   const maxWords = 400
 
-  // 自动调整textarea高度
-  const adjustTextareaHeight = () => {
-    if (textareaRef.current) {
-      const textarea = textareaRef.current
-      const oldHeight = textarea.style.height
-      
-      // 先重置高度
-      textarea.style.height = 'auto'
-      
-      // 计算内容需要的实际高度
-      const contentHeight = textarea.scrollHeight
-      
-      // 在最小和最大高度之间自动调整
-      let newHeight = Math.max(contentHeight, textareaConfig.minHeight)
-      newHeight = Math.min(newHeight, textareaConfig.maxHeight)
-      
-      textarea.style.height = `${newHeight}px`
-      
-      // 如果内容超过最大高度，显示滚动条
-      if (contentHeight > textareaConfig.maxHeight) {
-        textarea.style.overflowY = 'auto'
-      } else {
-        textarea.style.overflowY = 'hidden'
-      }
-      
-      // 如果高度增加了，自动滚动到textarea底部，并留出额外空间显示按钮
-      if (newHeight > parseInt(oldHeight) || !oldHeight) {
-        setTimeout(() => {
-          const rect = textarea.getBoundingClientRect()
-          const extraSpace = 100 // 额外留出100px的空间显示按钮
-          window.scrollTo({
-            top: window.pageYOffset + rect.bottom + extraSpace - window.innerHeight,
-            behavior: 'smooth'
-          })
-        }, 0)
-      }
-    }
-  }
-
-  // 当userInput变化时调整高度
-  useEffect(() => {
-    // 使用setTimeout确保在DOM更新后执行
-    const timer = setTimeout(() => {
-      adjustTextareaHeight()
-    }, 0)
-    return () => clearTimeout(timer)
-  }, [userInput])
-
-  // 处理输入，限制最大单词数
-  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value
-    const words = value.trim().split(/\s+/).filter(Boolean)
-    // 如果已经达到最大单词数，并且本次输入会导致超限，则不更新
-    if (wordCount >= maxWords && words.length > maxWords) {
-      setIsWordLimit(true)
-      return
-    }
-    if (words.length > maxWords) {
-      setUserInput(words.slice(0, maxWords).join(' '))
-      setIsWordLimit(true)
-    } else {
-      setUserInput(value)
-      setIsWordLimit(false)
-    }
-  }
-
-  // 粘贴时也做单词数判断
-  const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
-    const paste = e.clipboardData.getData('text')
-    const currentWords = userInput.trim().split(/\s+/).filter(Boolean)
-    const pasteWords = paste.trim().split(/\s+/).filter(Boolean)
-    if (currentWords.length >= maxWords) {
-      e.preventDefault()
-      setIsWordLimit(true)
-      return
-    }
-    // 只允许粘贴剩余单词数
-    const allowed = maxWords - currentWords.length
-    if (pasteWords.length > allowed) {
-      e.preventDefault()
-      const newWords = currentWords.concat(pasteWords.slice(0, allowed))
-      setUserInput(newWords.join(' '))
-      setIsWordLimit(true)
-    }
+  // 处理单词限制变化
+  const handleWordLimitChange = (isLimit: boolean) => {
+    setIsWordLimit(isLimit)
   }
 
   const handleGenerate = async () => {
@@ -191,6 +102,7 @@ export function Hero() {
     setShowOutput(false)
     setIsCopied(false)
     setGeneratedContextTitle(null)
+    setIsWordLimit(false)
   }
 
   const canRegenerate = selectedContextConfig?.title === generatedContextTitle;
@@ -269,15 +181,18 @@ export function Hero() {
                 </p>
               </div>
             )}
-            <textarea
-              ref={textareaRef}
+            <AIPromptTextarea
               value={userInput}
-              onChange={handleInputChange}
-              onPaste={handlePaste}
+              onChange={setUserInput}
               placeholder={selectedContext ? selectedContextConfig?.placeholder : t('contexts.0.placeholder')}
               disabled={!selectedContext}
-              className="w-full p-4 bg-transparent border-2 border-border rounded-lg focus:outline-none focus:border-purple-400 hover:border-purple-500 transition-colors text-foreground placeholder-muted-foreground placeholder:text-base disabled:bg-muted disabled:cursor-not-allowed resize-none"
-              style={{ minHeight: `${textareaConfig.minHeight}px` }}
+              maxWords={maxWords}
+              wordUnitTitle={t('wordUnitTitle')}
+              minHeight={150}
+              maxHeight={300}
+              isWordLimit={isWordLimit}
+              onWordLimitChange={handleWordLimitChange}
+              extraScrollSpace={100}
             />
             <div className="flex justify-between items-center mt-3">
               <div className="flex items-center space-x-1">
@@ -289,7 +204,7 @@ export function Hero() {
                     icon={<icons.Sparkles className="h-4 w-4"/>}
                   />
                 )}
-                {wordCount > 0 && (
+                {userInput.trim() && (
                   <button
                     onClick={() => setUserInput('')}
                     className="text-base text-muted-foreground hover:rounded-full hover:bg-neutral-300 dark:hover:bg-neutral-600 px-6 py-3"
@@ -298,14 +213,6 @@ export function Hero() {
                   </button>
                 )}
               </div>
-             <span
-               className={`text-base ${
-                 wordCount >= maxWords ? 'text-red-500' : wordCount > 300 ? 'text-orange-500' : 'text-muted-foreground'
-               } ${isWordLimit ? 'animate-bounce' : ''}`}
-               onAnimationEnd={() => setIsWordLimit(false)}
-             >
-               {wordCount}/{maxWords} words
-             </span>
             </div>
           </div>
         </div>

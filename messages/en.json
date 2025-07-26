@@ -16,6 +16,7 @@
     "outputTitle": "Your Description",
     "outputEmpty": "Your generated description will appear here",
     "outputEmptyTip": "You generated self-description will appear here",
+    "wordUnitTitle": "words",
     "contexts": [
       {
         "id": "professional",
