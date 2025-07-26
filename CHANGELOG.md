@@ -1,5 +1,11 @@
 # describe-yourself
 
+## 1.2.2
+
+### Patch Changes
+
+- feat(main): gallery use R2
+
 ## 1.2.1
 
 ### Patch Changes
