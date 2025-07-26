@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useTranslations } from 'next-intl'
 import { globalLucideIcons as icons } from '@windrun-huaiin/base-ui/components/server'
 import { GradientButton } from '@windrun-huaiin/third-ui/fuma/mdx'
@@ -20,6 +20,14 @@ interface ContextConfig {
 export function Hero() {
   const t = useTranslations('hero')
   const contexts = t.raw('contexts') as ContextConfig[]
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  
+  // textarea高度配置
+  const textareaConfig = {
+    minHeight: 150, // 最小高度 (px)
+    maxHeight: 300  // 最大高度 (px)
+  }
+  
   const [selectedContext, setSelectedContext] = useState<string | null>(null)
   const [userInput, setUserInput] = useState('')
   const [generatedDescription, setGeneratedDescription] = useState('')
@@ -36,6 +44,54 @@ export function Hero() {
   const wordArray = userInput.trim().split(/\s+/).filter(Boolean)
   const wordCount = wordArray.length
   const maxWords = 400
+
+  // 自动调整textarea高度
+  const adjustTextareaHeight = () => {
+    if (textareaRef.current) {
+      const textarea = textareaRef.current
+      const oldHeight = textarea.style.height
+      
+      // 先重置高度
+      textarea.style.height = 'auto'
+      
+      // 计算内容需要的实际高度
+      const contentHeight = textarea.scrollHeight
+      
+      // 在最小和最大高度之间自动调整
+      let newHeight = Math.max(contentHeight, textareaConfig.minHeight)
+      newHeight = Math.min(newHeight, textareaConfig.maxHeight)
+      
+      textarea.style.height = `${newHeight}px`
+      
+      // 如果内容超过最大高度，显示滚动条
+      if (contentHeight > textareaConfig.maxHeight) {
+        textarea.style.overflowY = 'auto'
+      } else {
+        textarea.style.overflowY = 'hidden'
+      }
+      
+      // 如果高度增加了，自动滚动到textarea底部，并留出额外空间显示按钮
+      if (newHeight > parseInt(oldHeight) || !oldHeight) {
+        setTimeout(() => {
+          const rect = textarea.getBoundingClientRect()
+          const extraSpace = 100 // 额外留出100px的空间显示按钮
+          window.scrollTo({
+            top: window.pageYOffset + rect.bottom + extraSpace - window.innerHeight,
+            behavior: 'smooth'
+          })
+        }, 0)
+      }
+    }
+  }
+
+  // 当userInput变化时调整高度
+  useEffect(() => {
+    // 使用setTimeout确保在DOM更新后执行
+    const timer = setTimeout(() => {
+      adjustTextareaHeight()
+    }, 0)
+    return () => clearTimeout(timer)
+  }, [userInput])
 
   // 处理输入，限制最大单词数
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -214,13 +270,14 @@ export function Hero() {
               </div>
             )}
             <textarea
+              ref={textareaRef}
               value={userInput}
               onChange={handleInputChange}
               onPaste={handlePaste}
               placeholder={selectedContext ? selectedContextConfig?.placeholder : t('contexts.0.placeholder')}
-              rows={5}
               disabled={!selectedContext}
-              className="w-full flex-1 p-4 bg-transparent border-2 border-border rounded-lg focus:outline-none focus:border-purple-400 hover:border-purple-500 transition-colors text-foreground placeholder-muted-foreground placeholder:text-base min-h-[120px] disabled:bg-muted disabled:cursor-not-allowed"
+              className="w-full p-4 bg-transparent border-2 border-border rounded-lg focus:outline-none focus:border-purple-400 hover:border-purple-500 transition-colors text-foreground placeholder-muted-foreground placeholder:text-base disabled:bg-muted disabled:cursor-not-allowed resize-none"
+              style={{ minHeight: `${textareaConfig.minHeight}px` }}
             />
             <div className="flex justify-between items-center mt-3">
               <div className="flex items-center space-x-1">
