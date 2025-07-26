@@ -7,7 +7,7 @@ import { globalLucideIcons as icons } from '@windrun-huaiin/base-ui/components/s
 import { GradientButton } from '@windrun-huaiin/third-ui/fuma/mdx'
 import React from 'react'
 import { XButton, AdsAlertDialog } from '@windrun-huaiin/third-ui/main'
-import { AIPromptTextarea } from './ai-prompt-textarea'
+import { AIPromptTextarea } from '@windrun-huaiin/third-ui/main'
 
 
 interface ContextConfig {

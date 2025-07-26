@@ -1,5 +1,11 @@
 # describe-yourself
 
+## 1.2.0
+
+### Minor Changes
+
+- fix(main): banner refactor update and aipromt-textarea update
+
 ## 1.1.2
 
 ### Patch Changes
