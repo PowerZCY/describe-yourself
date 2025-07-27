@@ -1,6 +1,6 @@
 {
   "name": "describe-yourself",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "private": true,
   "keywords": [
     "fumadocs",
@@ -96,7 +96,8 @@
     "check-translations": "dev-scripts check-translations -v",
     "clean-translations": "dev-scripts clean-translations -v",
     "remove-translations": "dev-scripts clean-translations --remove -v",
-    "whoareyou": "dev-scripts generate-nextjs-architecture -v"
+    "whoareyou": "dev-scripts generate-nextjs-architecture -v",
+    "windrun": "pnpm remove @windrun-huaiin/base-ui @windrun-huaiin/lib @windrun-huaiin/third-ui @windrun-huaiin/dev-scripts && pnpm add @windrun-huaiin/base-ui@latest @windrun-huaiin/lib@latest @windrun-huaiin/third-ui@latest && pnpm add -D @windrun-huaiin/dev-scripts@latest"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

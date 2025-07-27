@@ -189,8 +189,13 @@
     "eyesOn": "Reve Image",
     "titleR": "Creations",
     "description": "Explore the incredible possibilities with Reve Image. Each image below was generated using the AI technology with the accompanying prompt.",
-    "button": "Create Your Own Images",
+    "button": {
+      "title": "Create Your Own Images",
+      "href": "https://describeyourself.org/",
+      "align": "center"
+    },
     "defaultImgUrl": "https://r2.d8ger.com/default.webp",
+    "downloadPrefix": "describe-yourself",
     "prompts": [
       {
         "url": "https://r2.d8ger.com/Reve-Image/1.webp",
