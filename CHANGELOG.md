@@ -1,5 +1,11 @@
 # describe-yourself
 
+## 1.2.5
+
+### Patch Changes
+
+- feat(style): price-plan now use new UI
+
 ## 1.2.4
 
 ### Patch Changes
