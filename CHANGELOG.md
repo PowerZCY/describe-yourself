@@ -1,5 +1,11 @@
 # describe-yourself
 
+## 1.2.6
+
+### Patch Changes
+
+- feat(update): SEO use base component
+
 ## 1.2.5
 
 ### Patch Changes
