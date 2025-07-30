@@ -1,5 +1,11 @@
 # describe-yourself
 
+## 1.2.7
+
+### Patch Changes
+
+- fix(blog): init state
+
 ## 1.2.6
 
 ### Patch Changes
