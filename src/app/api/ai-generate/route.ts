@@ -9,8 +9,6 @@ const appHeaders = {
   "X-Title": appConfig.openrouterAI.appName
 }
 
-const timeout = appConfig.openrouterAI.timeoutSeconds * 1000;
-
 // 公共的mock处理逻辑
 async function handleMockResponse(mockType: 'image' | 'txt' | 'audio' | 'video' | 'file', params: any) {
   if (!appConfig.openrouterAI.enableMock) {
@@ -21,9 +19,9 @@ async function handleMockResponse(mockType: 'image' | 'txt' | 'audio' | 'video' 
   
   // Mock timeout
   if (process.env.NODE_ENV !== 'production' && appConfig.openrouterAI.enableMockTimeout) {
-    const timeout = appConfig.openrouterAI.mockTimeoutSeconds * 1000;
-    console.warn(`[AI-Mock-Timeout]${timeout}ms`);
-    await new Promise(resolve => setTimeout(resolve, timeout));
+    const mockTimeout = appConfig.openrouterAI.mockTimeoutSeconds * 1000;
+    console.warn(`[AI-Mock-Timeout]${mockTimeout}ms`);
+    await new Promise(resolve => setTimeout(resolve, mockTimeout));
   }
   
   // Mock ads error
@@ -44,6 +42,7 @@ async function handleMockResponse(mockType: 'image' | 'txt' | 'audio' | 'video' 
   return null;
 }
 
+const timeout = appConfig.openrouterAI.timeoutSeconds * 1000;
 // AI请求超时控制辅助函数
 async function applyTimeout<T>(promise: Promise<T>, ms = timeout): Promise<T> {
   const controller = new AbortController();
