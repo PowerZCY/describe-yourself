@@ -26,7 +26,7 @@ export async function Hero({ locale }: { locale: string }) {
   }
 
   return (
-    <section className="px-16 mx-16 md:mx-32 space-y-8">
+    <section className="mt-25 px-16 mx-16 md:mx-32 space-y-8">
       {/* 标题区 */}
       <div className="text-center space-y-3">
         <h1 className="text-3xl md:text-5xl font-bold leading-tight">
