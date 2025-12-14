@@ -1,5 +1,11 @@
 # describe-yourself
 
+## 2.0.1
+
+### Patch Changes
+
+- fix(style): eslint upgrade
+
 ## 2.0.0
 
 ### Major Changes

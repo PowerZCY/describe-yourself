@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+ 
 
 import { getTranslations } from 'next-intl/server'
 import { HeroClient } from './hero-client'
@@ -30,7 +30,7 @@ export async function Hero({ locale }: { locale: string }) {
       {/* 标题区 */}
       <div className="text-center space-y-3">
         <h1 className="text-3xl md:text-5xl font-bold leading-tight">
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-purple-400 to-pink-600">
             {t('mainTitle')}
           </span>
         </h1>

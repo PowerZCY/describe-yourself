@@ -1,4 +1,4 @@
-/* eslint-disable react/no-unescaped-entities */
+ 
 'use client'
 
 import { globalLucideIcons as icons } from '@windrun-huaiin/base-ui/components/server'
@@ -148,7 +148,7 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
                     <div className="flex flex-col items-center text-center space-y-2">
                       <div className={`p-2 rounded-full transition-colors ${
                         selectedContext === context.id
-                          ? 'bg-gradient-to-r from-purple-400 to-pink-500'
+                          ? 'bg-linear-to-r from-purple-400 to-pink-500'
                           : 'bg-muted text-muted-foreground'
                       }`}>
                         {selectedContext === context.id ? <Icon className="w-5 h-5 text-white" /> : <Icon className="w-5 h-5" />}
@@ -255,7 +255,7 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
             </div>
           ) : (
             <div className="border-2 border-border rounded-lg text-center space-y-3 py-8 bg-background">
-              <div className="mx-auto w-12 h-12 bg-gradient-to-r from-purple-400 to-pink-600 rounded-full flex items-center justify-center">
+              <div className="mx-auto w-12 h-12 bg-linear-to-r from-purple-400 to-pink-600 rounded-full flex items-center justify-center">
                 <icons.Sparkles className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-foreground">{translations.outputEmpty}</h3>
