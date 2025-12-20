@@ -55,7 +55,7 @@
       },
       {
         "id": "language-learning",
-        "title": "Language Learning",
+        "title": "Language",
         "icon": "Globe",
         "placeholder": "e.g., friendly, enjoys music, likes soccer, helpful person",
         "description": "Write a short description of your traits, interests, or experiences in the target language. Use simple words like friendly or enjoys music. Focus on clear, easy phrases to practice your language skills."
@@ -115,53 +115,6 @@
       }
     ]
   },
-  "pricePlan": {
-    "title": "Choose Your Plan",
-    "subtitle": "Get the best of Raphael AI with faster generation and commercial usage",
-    "billingSwitch": {
-      "options": [
-        { "key": "monthly", "name": "Monthly", "unit": "/month", "discountText": "", "subTitle": "Billed Monthly" },
-        { "key": "yearly", "name": "Yearly", "unit": "/month", "discountText": "Save {percent}%", "subTitle": "Billed Annually" }
-      ],
-      "defaultKey": "yearly"
-    },
-    "plans": [
-      {
-        "key": "free",
-        "title": "Hobby Version",
-        "showBillingSubTitle": false,
-        "features": [
-          { "description": "5 free credits per day", "tooltip": "1 credit = 1 generation" },
-          { "description": "Easy-to-use interface" }
-        ],
-        "button": { "text": "Get started" }
-      },
-      {
-        "key": "premium",
-        "title": "Premium Version",
-        "showBillingSubTitle": true,
-        "features": [
-          { "description": "500 credits per month","tooltip": "1 credit = 1 narration" },
-          { "description": "Priority generation speed" },
-          { "description": "Commercial usage rights" },
-          { "description": "Email support" }      
-        ],
-        "button": { "text": "Upgrade to Premium" }
-      },
-      {
-        "key": "ultimate",
-        "title": "Ultimate Version",
-        "showBillingSubTitle": true,
-        "titleTags": ["Most Popular"],
-        "features": [
-          { "description": "1500 credits per month","tooltip": "1 credit = 1 narration" },
-          { "description": "Early access to new features" },
-          { "description": "Email support" }
-        ],
-        "button": { "text": "Upgrade to Ultimate" }
-      }
-    ]
-  },
   "features": {
     "title": "Why Choose",
     "eyesOn": "Describe Yourself",
@@ -181,55 +134,6 @@
         "title": "Boost Your Confidence",
         "description": "Describe Yourself helps you recognize your strengths and achievements, boosting your self-confidence.",
         "iconKey": "MessageCircleMore"
-      }
-    ]
-  },
-  "gallery": {
-    "titleL": "Gallery of",
-    "eyesOn": "Reve Image",
-    "titleR": "Creations",
-    "description": "Explore the incredible possibilities with Reve Image. Each image below was generated using the AI technology with the accompanying prompt.",
-    "button": {
-      "title": "Create Your Own Images",
-      "href": "https://describeyourself.org/",
-      "align": "center"
-    },
-    "defaultImgUrl": "https://r2.d8ger.com/default.webp",
-    "downloadPrefix": "describe-yourself",
-    "prompts": [
-      {
-        "url": "https://r2.d8ger.com/Reve-Image/1.webp",
-        "altMsg": "A futuristic cityscape with flying vehicles and neon lights"
-      }
-    ]
-  },
-  "tips": {
-    "title": "Tips for Getting the Best Results with",
-    "eyesOn": "Reve Image",
-    "sections": [
-      {
-        "title": "Be Specific in Your Prompts",
-        "description": "When using Reve Image, the more specific your prompt, the better the results. Include details about style, lighting, mood, and composition to guide the AI toward your vision."
-      },
-      {
-        "title": "Experiment with Different Styles",
-        "description": "Reve Image can generate images in various artistic styles. Try adding style descriptors like \"oil painting,\" \"digital art,\" \"photorealistic,\" or \"watercolor\" to your prompts."
-      },
-      {
-        "title": "Use Reference Artists",
-        "description": "Mentioning specific artists in your Reve Image prompts can help achieve particular aesthetics. For example, \"in the style of Van Gogh\" or \"like a Wes Anderson film.\""
-      },
-      {
-        "title": "Iterate and Refine",
-        "description": "Don't be afraid to generate multiple images with Reve Image and refine your prompt based on the results. Each iteration brings you closer to your perfect image."
-      },
-      {
-        "title": "Consider Composition Elements",
-        "description": "Include composition details in your Reve Image prompts, such as \"close-up,\" \"wide shot,\" \"from above,\" or \"symmetrical composition\" to control the framing."
-      },
-      {
-        "title": "Maximize Your Daily Allowance",
-        "description": "With Reve Image's generous 20 free images per day, plan your creative sessions to make the most of this allowance. Save your best results to build a personal inspiration library."
       }
     ]
   },
@@ -262,20 +166,6 @@
     ],
     "conclusion": "In conclusion, the ability to describe yourself is a vital skill for personal and professional success. By mastering how to describe yourself, you can communicate your value, build meaningful connections, and seize new opportunities. Use AI tools to describe yourself with confidence and creativity, and always strive to improve how you describe yourself. Start practicing today and see how the power to describe yourself can transform your future."
   },
-  "cta": {
-    "title": "Ready to Create with",
-    "eyesOn": "Reve Image",
-    "description1": "Start generating beautiful images today with your 20 free daily creations.",
-    "description2": "No credit card required.",
-    "button": "Get Started Now",
-    "url": "https://preview.reve.art/"
-  },
-  "languageDetection": {
-    "title": "Language Detection",
-    "description": "Would you like to switch to",
-    "close": "No, thanks",
-    "changeAction": "Yes, switch"
-  },
   "footer": {
     "company": "Describe Yourself",
     "copyright": "Copyright © {year} {name} All rights reserved.",
@@ -289,7 +179,9 @@
   },
   "clerk": {
     "signIn": "Sign In",
-    "signUp": "Sign Up"
+    "signUp": "Sign Up",
+    "signUpBonus": "",
+    "signUpBonusTooltip": ""
   },
   "linkPreview": {
     "blog": "Blog",

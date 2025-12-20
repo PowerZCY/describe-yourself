@@ -17,11 +17,6 @@ export async function homeNavLinks(locale: string): Promise<LinkItemType[]> {
       url: `/${locale}/blog`,
     },
     {
-      icon: <icons.BTC />,
-      text: t1('pricing'),
-      url: `/${locale}#pricing`,
-    },
-    {
       type: 'custom',
       // false to put the menu on the left, true to put the button on the right
       secondary: true,
@@ -53,6 +48,5 @@ export async function baseOptions(locale: string): Promise<BaseLayoutProps> {
       transparentMode: 'none',
     },
     i18n,
-    // githubUrl: appConfig.github,
   };
 }

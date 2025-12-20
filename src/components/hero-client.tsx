@@ -127,12 +127,12 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
       />
 
       {/* 上下分区：上下两行 */}
-      <div className="flex flex-col space-y-6">
+      <div className="flex flex-col space-y-4 md:space-y-6">
         {/* 上：上下文选择 */}
         <div className="space-y-3">
-          <div className="border-2 border-border rounded-lg bg-card/30 p-5 h-full flex flex-col">
-            <h2 className="text-xl font-semibold mb-4 text-foreground">{translations.chooseContext}</h2>
-            <div className="grid grid-cols-6 gap-3 flex-1">
+          <div className="border-2 border-border rounded-lg bg-card/30 p-3 md:p-5 h-full flex flex-col">
+            <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-foreground">{translations.chooseContext}</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 flex-1">
               {contexts.map((context) => {
                 const Icon = icons[context.icon]
                 return (
@@ -164,12 +164,12 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
 
         {/* 下：输入区 */}
         <div className="space-y-3 flex flex-col">
-          <div className="border-2 border-border rounded-lg bg-card/30 p-5 flex-1 flex flex-col">
-            <h2 className="text-xl font-semibold mb-4 text-foreground">{translations.shareBrief}</h2>
-            <p className="text-muted-foreground text-base mb-4">{translations.inputTip}</p>
+          <div className="border-2 border-border rounded-lg bg-card/30 p-3 md:p-5 flex-1 flex flex-col">
+            <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-foreground">{translations.shareBrief}</h2>
+            <p className="text-muted-foreground text-sm md:text-base mb-3 md:mb-4">{translations.inputTip}</p>
             {selectedContext && (
-              <div className="mb-4">
-                <p className="text-muted-foreground text-base p-4 bg-background rounded-lg border border-border">
+              <div className="mb-3 md:mb-4">
+                <p className="text-muted-foreground text-sm md:text-base p-3 md:p-4 bg-background rounded-lg border border-border">
                   <icons.Info className="w-5 h-5 inline mr-2 text-purple-500" />
                   {selectedContextConfig?.description}
                 </p>
@@ -188,20 +188,22 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
               onWordLimitChange={handleWordLimitChange}
               extraScrollSpace={100}
             />
-            <div className="flex justify-between items-center mt-3">
-              <div className="flex items-center space-x-1">
+            <div className="flex flex-col sm:flex-row justify-between items-center mt-3 gap-3">
+              <div className="flex items-center space-x-2 w-full sm:w-auto">
                 {selectedContext && (
                    <GradientButton
                     title="Generate Description"
                     onClick={handleGenerate}
                     disabled={isGenerating}
-                    icon={<icons.Sparkles className="h-4 w-4"/>}
+                    icon={<icons.Sparkles/>}
+                    iconClassName="w-4 h-4 sm:w-4 sm:h-4"
+                    className="w-full sm:w-auto text-sm md:text-base font-medium"
                   />
                 )}
                 {userInput.trim() && (
                   <button
                     onClick={() => setUserInput('')}
-                    className="text-base text-muted-foreground hover:rounded-full hover:bg-neutral-300 dark:hover:bg-neutral-600 px-6 py-3"
+                    className="text-sm md:text-base text-muted-foreground hover:rounded-full hover:bg-neutral-300 dark:hover:bg-neutral-600 px-4 py-2 md:px-6 md:py-3 w-full sm:w-auto"
                   >
                     Clear
                   </button>
@@ -214,42 +216,48 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
 
       {/* 结果区：单独一行 */}
       <div className="space-y-4">
-        <div className="border-2 border-border bg-card/30 rounded-lg p-5">
-          <h2 className="text-xl font-semibold mb-4 text-foreground">{translations.outputTitle}</h2>
+        <div className="border-2 border-border bg-card/30 rounded-lg p-3 md:p-5">
+          <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-foreground">{translations.outputTitle}</h2>
           {showOutput ? (
             <div>
-              <div className="bg-background rounded-lg border border-border p-4 mb-4">
-                <div className="mb-3 flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground bg-background px-3 py-1 rounded-full border border-border">
+              <div className="bg-background rounded-lg border border-border p-3 md:p-4 mb-3 md:mb-4">
+                <div className="mb-3 flex items-center justify-between gap-2">
+                  <span className="text-xs md:text-sm text-muted-foreground bg-background px-2 md:px-3 py-1 rounded-full border border-border truncate max-w-[150px] sm:max-w-[200px] md:max-w-none">
                     {generatedContextTitle} Context
                   </span>
                   <XButton
                     type="single"
-                    minWidth="min-w-[110px]"
+                    minWidth="min-w-[100px]  sm:min-w-[120px]"
                     button={{
-                      icon: isCopied ? <icons.CheckCheck className="w-5 h-5 mr-1" /> : <icons.Copy className="w-5 h-5 mr-1" />,
+                      icon: isCopied ? <icons.CheckCheck/> : <icons.Copy/>,
                       text: isCopied ? 'Copied' : 'Copy',
-                      onClick: handleCopy
+                      onClick: handleCopy,
                     }}
+                    className="w-auto shrink-0 justify-center text-xs md:text-sm px-2 md:px-4 h-8 md:h-10 whitespace-nowrap"
+                    iconClassName="w-4 h-4 sm:w-4 sm:h-4 mr-1"
                   />
                 </div>
-                <div className="prose prose-base max-w-none">
-                  <p className="text-foreground/90 leading-relaxed whitespace-pre-wrap text-base m-0">{generatedDescription}</p>
+                <div className="prose prose-sm md:prose-base max-w-none">
+                  <p className="text-foreground/90 leading-relaxed whitespace-pre-wrap text-sm md:text-base m-0">{generatedDescription}</p>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-2 md:gap-3">
                 <GradientButton
                   title="Regenerate"
                   onClick={handleRegenerate}
                   disabled={isGenerating || !canRegenerate}
-                  icon={<icons.RefreshCcw className="h-4 w-4" />}
+                  icon={<icons.RefreshCcw/>}
+                  iconClassName="w-4 h-4 sm:w-4 sm:h-4"
+                  className="text-xs md:text-sm px-6 py-2 md:px-6 md:py-2.5"
                 />
                 
                 <GradientButton
                   title="Start Over"
                   disabled={isGenerating}
                   onClick={resetForm}
-                  icon={<icons.BookX className="h-4 w-4"/>}
+                  icon={<icons.BookX/>}
+                  iconClassName="w-4 h-4 sm:w-4 sm:h-4"
+                  className="text-xs md:text-sm px-6 py-2 md:px-6 md:py-2.5"
                 />
               </div>
             </div>
