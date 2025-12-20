@@ -41,14 +41,14 @@
       },
       {
         "id": "self-discovery",
-        "title": "Discovery",
+        "title": "Self-Discovery",
         "icon": "Search",
         "placeholder": "e.g., empathetic, curious, values honesty, volunteered abroad",
         "description": "Reflect with a short description of your personal values, traits, or experiences. Include characteristics like empathy or curiosity, core beliefs, or moments that shaped you, like volunteering abroad. Share what feels true to you."
       },
       {
         "id": "creative-writing",
-        "title": "Creative",
+        "title": "Creative Writing",
         "icon": "Pencil",
         "placeholder": "e.g., brave warrior, mysterious past, dystopian world, hidden powers",
         "description": "Create a short description of your character's traits, background, or motivations. Include details like bravery or a mysterious past, or story context like a warrior in a dystopian world. Make it vivid yet simple."

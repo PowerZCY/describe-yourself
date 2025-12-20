@@ -132,7 +132,7 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
         <div className="space-y-3">
           <div className="border-2 border-border rounded-lg bg-card/30 p-3 md:p-5 h-full flex flex-col">
             <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-foreground">{translations.chooseContext}</h2>
-            <div className="grid grid-cols-3 gap-2 md:grid-cols-6 md:gap-3 flex-1">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-6 md:gap-2 flex-1">
               {contexts.map((context) => {
                 const Icon = icons[context.icon]
                 const isSelected = selectedContext === context.id;
@@ -145,13 +145,13 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
                       relative overflow-hidden transition-all duration-300 rounded-lg
                       
                       /* Mobile Styles: Tag-like, compact, solid background when selected */
-                      p-2 text-xs font-medium flex items-center justify-center
+                      p-1.5 font-medium flex items-center justify-center
                       ${isSelected 
                         ? 'bg-linear-to-r from-purple-400 to-pink-500 text-white border-transparent shadow-md' 
                         : 'bg-card border border-border text-foreground hover:border-purple-300'}
 
                       /* Desktop Styles: Card-like, vertical, border highlight */
-                      md:p-3 md:border-2 md:flex-col md:justify-start md:space-y-2 md:text-sm
+                      md:p-2 md:border-2 md:flex-col md:justify-start md:space-y-2 md:text-base
                       md:${isSelected 
                         ? 'bg-transparent text-foreground border-purple-500 scale-105' 
                         : 'bg-transparent hover:border-purple-500'}
