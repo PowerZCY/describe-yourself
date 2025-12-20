@@ -132,29 +132,44 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
         <div className="space-y-3">
           <div className="border-2 border-border rounded-lg bg-card/30 p-3 md:p-5 h-full flex flex-col">
             <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-foreground">{translations.chooseContext}</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 md:gap-3 flex-1">
+            <div className="grid grid-cols-3 gap-2 md:grid-cols-6 md:gap-3 flex-1">
               {contexts.map((context) => {
                 const Icon = icons[context.icon]
+                const isSelected = selectedContext === context.id;
+                
                 return (
                   <button
                     key={context.id}
                     onClick={() => setSelectedContext(context.id)}
-                    className={`p-3 rounded-lg border-2 transition-all duration-300 ${
-                      selectedContext === context.id
-                        ? 'border-purple-500  scale-105'
-                        : 'border-border hover:border-purple-500'
-                    }`}
+                    className={`
+                      relative overflow-hidden transition-all duration-300 rounded-lg
+                      
+                      /* Mobile Styles: Tag-like, compact, solid background when selected */
+                      p-2 text-xs font-medium flex items-center justify-center
+                      ${isSelected 
+                        ? 'bg-linear-to-r from-purple-400 to-pink-500 text-white border-transparent shadow-md' 
+                        : 'bg-card border border-border text-foreground hover:border-purple-300'}
+
+                      /* Desktop Styles: Card-like, vertical, border highlight */
+                      md:p-3 md:border-2 md:flex-col md:justify-start md:space-y-2 md:text-sm
+                      md:${isSelected 
+                        ? 'bg-transparent text-foreground border-purple-500 scale-105' 
+                        : 'bg-transparent hover:border-purple-500'}
+                    `}
                   >
-                    <div className="flex flex-col items-center text-center space-y-2">
-                      <div className={`p-2 rounded-full transition-colors ${
-                        selectedContext === context.id
-                          ? 'bg-linear-to-r from-purple-400 to-pink-500'
-                          : 'bg-muted text-muted-foreground'
-                      }`}>
-                        {selectedContext === context.id ? <Icon className="w-5 h-5 text-white" /> : <Icon className="w-5 h-5" />}
-                      </div>
-                      <h3 className="font-medium text-sm text-foreground">{context.title}</h3>
+                    {/* Icon: Hidden on mobile, visible on desktop */}
+                    <div className={`hidden md:block p-2 rounded-full transition-colors ${
+                      isSelected
+                        ? 'bg-linear-to-r from-purple-400 to-pink-500'
+                        : 'bg-muted text-muted-foreground'
+                    }`}>
+                       <Icon className={`w-5 h-5 ${isSelected ? 'text-white' : ''}`} />
                     </div>
+                    
+                    {/* Text */}
+                    <span className="truncate w-full text-center md:whitespace-normal">
+                      {context.title}
+                    </span>
                   </button>
                 )
               })}
