@@ -11,6 +11,7 @@ import { montserrat } from '@/lib/fonts';
 import { cn as cnUtils } from '@windrun-huaiin/lib/utils';
 import { GoogleAnalyticsScript } from "@windrun-huaiin/base-ui/components";
 import { MicrosoftClarityScript } from "@windrun-huaiin/base-ui/components";
+import { getAsNeededLocalizedUrl } from '@windrun-huaiin/lib';
 
 export const dynamic = 'force-dynamic'
 
@@ -26,11 +27,10 @@ export async function generateMetadata({
     title: t('webTitle'),
     description: t('webDescription'),
     keywords: t('keywords'),
-    metadataBase: new URL(appConfig.baseUrl),
     alternates: {
-      canonical: `${appConfig.baseUrl}/${locale}`,
+      canonical: `${appConfig.baseUrl}${getAsNeededLocalizedUrl(locale, '/')}`,
       languages: {
-        "en": `${appConfig.baseUrl}/en`,
+        "en": `${appConfig.baseUrl}${getAsNeededLocalizedUrl('en', '/')}`,
       }
     },
     icons: [

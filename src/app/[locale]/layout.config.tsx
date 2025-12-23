@@ -1,4 +1,3 @@
-import { i18n } from '@/i18n';
 import { appConfig } from '@/lib/appConfig';
 import { SiteIcon } from '@/lib/site-config';
 import { globalLucideIcons as icons } from '@windrun-huaiin/base-ui/components/server';
@@ -6,6 +5,7 @@ import { ClerkUser } from '@windrun-huaiin/third-ui/clerk/server';
 import { type LinkItemType } from 'fumadocs-ui/layouts/docs';
 import { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
 import { getTranslations } from 'next-intl/server';
+import { getAsNeededLocalizedUrl } from '@windrun-huaiin/lib';
 
 // home page normal menu
 export async function homeNavLinks(locale: string): Promise<LinkItemType[]> {
@@ -14,7 +14,7 @@ export async function homeNavLinks(locale: string): Promise<LinkItemType[]> {
     {
       icon: <icons.AlbumIcon />,
       text: t1('blog'),
-      url: `/${locale}/blog`,
+      url: getAsNeededLocalizedUrl(locale, '/blog'),
     },
     {
       type: 'custom',
@@ -36,7 +36,7 @@ export async function baseOptions(locale: string): Promise<BaseLayoutProps> {
   const t = await getTranslations({ locale: locale, namespace: 'home' });
   return {
     nav: {
-      url: `/${locale}`,
+      url: getAsNeededLocalizedUrl(locale, '/'),
       title: (
         <>
           <SiteIcon />
@@ -47,6 +47,5 @@ export async function baseOptions(locale: string): Promise<BaseLayoutProps> {
       ),
       transparentMode: 'none',
     },
-    i18n,
   };
 }
