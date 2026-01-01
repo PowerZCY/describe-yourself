@@ -147,13 +147,13 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
                       /* Mobile Styles: Tag-like, compact, solid background when selected */
                       p-1.5 font-medium flex items-center justify-center
                       ${isSelected 
-                        ? 'bg-linear-to-r from-purple-400 to-pink-500 text-white border-transparent shadow-md' 
+                        ? 'bg-linear-to-r from-purple-400 to-pink-500 text-white border border-transparent shadow-md' 
                         : 'bg-card border border-border text-foreground hover:border-purple-300'}
 
                       /* Desktop Styles: Card-like, vertical, border highlight */
                       md:p-2 md:border-2 md:flex-col md:justify-start md:space-y-2 md:text-base
                       md:${isSelected 
-                        ? 'bg-transparent text-foreground border-purple-500 scale-105' 
+                        ? 'bg-transparent text-foreground border-purple-500' 
                         : 'bg-transparent hover:border-purple-500'}
                     `}
                   >
@@ -182,14 +182,18 @@ export function HeroClient({ contexts, translations }: HeroClientProps) {
           <div className="border-2 border-border rounded-lg bg-card/30 p-3 md:p-5 flex-1 flex flex-col">
             <h2 className="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-foreground">{translations.shareBrief}</h2>
             <p className="text-muted-foreground text-sm md:text-base mb-3 md:mb-4">{translations.inputTip}</p>
-            {selectedContext && (
-              <div className="mb-3 md:mb-4">
+            <div
+              className={`grid transition-all duration-300 ease-in-out ${
+                selectedContext ? 'grid-rows-[1fr] opacity-100 mb-3 md:mb-4' : 'grid-rows-[0fr] opacity-0'
+              }`}
+            >
+              <div className="overflow-hidden">
                 <p className="text-muted-foreground text-sm md:text-base p-3 md:p-4 bg-background rounded-lg border border-border">
                   <icons.Info className="w-5 h-5 inline mr-2 text-purple-500" />
-                  {selectedContextConfig?.description}
+                  {selectedContextConfig?.description || contexts[0]?.description}
                 </p>
               </div>
-            )}
+            </div>
             <AIPromptTextarea
               value={userInput}
               onChange={setUserInput}
